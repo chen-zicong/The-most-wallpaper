@@ -1,4 +1,4 @@
-package com.chenzicong.weichatclong;
+package com.chenzicong.weichatclong.BeautifulTextUtils;
 
 import java.util.ArrayList;
 

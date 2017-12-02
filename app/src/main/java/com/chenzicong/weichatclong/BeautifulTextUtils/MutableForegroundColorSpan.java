@@ -1,4 +1,4 @@
-package com.chenzicong.weichatclong;
+package com.chenzicong.weichatclong.BeautifulTextUtils;
 
 import android.graphics.Color;
 import android.text.TextPaint;

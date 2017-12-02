@@ -1,4 +1,4 @@
-package com.chenzicong.weichatclong;
+package com.chenzicong.weichatclong.Activity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -12,6 +12,7 @@ import android.view.Window;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chenzicong.weichatclong.Adapter.HomeAdapter;
+import com.chenzicong.weichatclong.R;
 import com.chenzicong.weichatclong.beans.HomeItem;
 
 import org.jsoup.Jsoup;
@@ -22,6 +23,13 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 
@@ -46,11 +54,46 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         mRecyclerView = (RecyclerView) findViewById(R.id.RecycleView);
         mRecyclerView.setLayoutManager(
-                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)); //瀑布流布局
         //启动后台线程
-        new FetchItemsTask().execute(ONE_DATA);
+      //  new FetchItemsTask().execute(ONE_DATA);
+        initData();
 
 
+    }
+
+    private void initData() {
+
+        Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> e) throws Exception {
+                mHomeItems = new ArrayList<>();
+                Log.i("czc", "可怕哦: 进来了没有");
+              String  mUrlq = "http://www.umei.cc/meinvtupian/xingganmeinv";
+                Document mDoc = Jsoup.connect(mUrlq).timeout(10000).get();
+                Elements mTotal = mDoc.select("div.TypeList");
+                Elements mItems = mTotal.select("li");
+                for (Element element : mItems) {
+
+                    String imageurl = element.select("img").first().attr("src");
+                    //String title = element.select("a").first().attr("alt");
+                    String attr = element.select("a").first().attr("href");
+                    HomeItem homeItem = new HomeItem();
+                    //homeItem.setTitle(title);
+                    homeItem.setUrl(imageurl);
+                    homeItem.setContent(attr);
+                    mHomeItems.add(homeItem);
+                }
+                e.onNext(ONE_DATA); //发送数据
+
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).doOnNext(new Consumer<String>() {
+            @Override
+            public void accept(String s) throws Exception {
+                    setAdapter();
+            }
+        });
     }
 
 

@@ -1,4 +1,4 @@
-package com.chenzicong.weichatclong;
+package com.chenzicong.weichatclong.Activity;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
@@ -22,6 +22,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chenzicong.weichatclong.BeautifulTextUtils.MutableForegroundColorSpan;
+import com.chenzicong.weichatclong.R;
+import com.chenzicong.weichatclong.BeautifulTextUtils.TypeWriterSpanGroup;
 import com.chenzicong.weichatclong.database.LoginDatabase;
 
 import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
@@ -63,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, Register.class);
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
@@ -89,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                         mEditor.clear();
                     }
                     mEditor.apply();
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, PagerActivity.class);
                     startActivity(intent);
                 } else {
                     Toast.makeText(LoginActivity.this, "erro", Toast.LENGTH_SHORT).show();

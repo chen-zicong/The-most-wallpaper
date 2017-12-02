@@ -1,4 +1,4 @@
-package com.chenzicong.weichatclong;
+package com.chenzicong.weichatclong.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
+
+import com.chenzicong.weichatclong.R;
 
 import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 

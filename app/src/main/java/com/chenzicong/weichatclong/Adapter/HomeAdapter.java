@@ -33,7 +33,6 @@ public class HomeAdapter extends BaseQuickAdapter<HomeItem, BaseViewHolder> {
         ImageView image = helper.getView(R.id.ImageView);
         Glide.with(mcontext).load(item.getUrl()).into(image);
         helper.addOnClickListener(R.id.ImageView).setText(R.id.NAME, item.getTitle());
-        Drawable drawable = image.getDrawable();
 
     }
 }

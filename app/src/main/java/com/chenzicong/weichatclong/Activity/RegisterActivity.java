@@ -1,4 +1,4 @@
-package com.chenzicong.weichatclong;
+package com.chenzicong.weichatclong.Activity;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -12,9 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.chenzicong.weichatclong.R;
 import com.chenzicong.weichatclong.database.LoginDatabase;
 
-public class Register extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     private EditText mRepassword;
     private EditText mPassword;
@@ -44,16 +45,16 @@ public class Register extends AppCompatActivity {
                 String password = mPassword.getText().toString();
                 String Repassword = mRepassword.getText().toString();
                 if (userName.equals("") || password.equals("") || Repassword.equals("")) {
-                    Toast.makeText(Register.this, "不能为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "不能为空", Toast.LENGTH_SHORT).show();
                 } else if (!password.equals(Repassword)) {
-                    Toast.makeText(Register.this, "密码不一致", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "密码不一致", Toast.LENGTH_SHORT).show();
                 } else {
                     mDatabase = new LoginDatabase(getApplicationContext()).getWritableDatabase();
                     ContentValues contentValues = new ContentValues();
                     contentValues.put("user", userName);
                     contentValues.put("password", password);
                     mDatabase.insert("user", null, contentValues);
-                    Intent intent = new Intent(Register.this, LoginActivity.class);
+                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(intent);
 
                 }

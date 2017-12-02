@@ -1,4 +1,4 @@
-package com.chenzicong.weichatclong;
+package com.chenzicong.weichatclong.Activity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.chenzicong.weichatclong.Adapter.RV_content_Adapter;
+import com.chenzicong.weichatclong.R;
 import com.chenzicong.weichatclong.beans.RV_centent_bean;
 
 import org.jsoup.Jsoup;
