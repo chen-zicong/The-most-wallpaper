@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/loginbackground"
+                android:fitsSystemWindows="true">
+
+
+    <!-- android:textCursorDrawable="@null"   表示光标颜色和字体颜色一样-->
+    <EditText
+
+        android:id="@+id/EditText_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="200dp"
+        android:drawableLeft="@drawable/ic_user"
+        android:drawablePadding="10dp"
+        android:hint="UserName"
+        android:textColor="#FFF"
+        android:textColorHint="#FFF"
+        android:textSize="18sp"
+        android:theme="@style/MyEditText"/>
+
+
+    <EditText
+        android:id="@+id/EditText_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/EditText_user"
+        android:layout_gravity="center"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@drawable/vector_drawable_password"
+        android:drawablePadding="10dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColor="#FFF"
+        android:textColorHint="#FFF"
+        android:textSize="18sp"
+        android:theme="@style/MyEditText"/>
+
+    <EditText
+        android:id="@+id/EditText_Repassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/EditText_password"
+        android:layout_gravity="center"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@drawable/vector_drawable_password"
+        android:drawablePadding="10dp"
+        android:hint="Comfirm Password"
+        android:inputType="textPassword"
+        android:textColor="#FFF"
+        android:textColorHint="#FFF"
+        android:textSize="18sp"
+
+        android:theme="@style/MyEditText"/>
+
+    <Button
+        android:id="@+id/signupButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/EditText_Repassword"
+        android:layout_gravity="center"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/loginbutton"
+        android:text="Sign UP"
+        android:textColor="#FFF"
+        android:textSize="18sp"/>
+
+
+</RelativeLayout>
+
