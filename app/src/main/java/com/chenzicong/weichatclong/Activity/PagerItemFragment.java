@@ -72,9 +72,9 @@ public class PagerItemFragment extends Fragment {
     private void setAdapter() {
         mHomeAdapter = new HomeAdapter(mHomeItems, getActivity());
         //设置动画,默认为渐隐
-        //  mHomeAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+      mHomeAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT );
         //设置动画重复播放
-        //  mHomeAdapter.isFirstOnly(false);
+        mHomeAdapter.isFirstOnly(false);
         //获取header的布局
         //  View view = View.inflate(this, R.layout.header_view, null);
         //设置RECYCLERVIEW的HEADER
@@ -90,6 +90,8 @@ public class PagerItemFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        View view = View.inflate(getActivity(),R.layout.empty_data_layout,null);
+        mHomeAdapter.setEmptyView(view);
 
         mHomeAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override

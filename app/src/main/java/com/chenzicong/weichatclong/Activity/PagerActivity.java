@@ -13,6 +13,7 @@ import com.chenzicong.weichatclong.Adapter.SimpleViewPagerAdapter;
 import com.chenzicong.weichatclong.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
@@ -42,15 +43,13 @@ public class PagerActivity extends AppCompatActivity {
         pager = (ViewPager) findViewById(R.id.ViewPager);
         mPagerTabStrip = (PagerTabStrip) findViewById(R.id.PagerTabStrip);
         //添加fragment
-        for (int i = 0; i < mImageTypes.length; i++) {
-            mFragments.add(new PagerItemFragment(mImageTypes[i]));
+        for (String ImageType:mImageTypes) {
+            mFragments.add(new PagerItemFragment(ImageType));
         }
         //添加title
-        for (int i = 0; i < mTitlesStr.length; i++) {
-            mTitles.add(mTitlesStr[i]);
-        }
-        mPagerTabStrip.setDrawFullUnderline(false);
-        mPagerTabStrip.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
+        Collections.addAll(mTitles, mTitlesStr);
+           mPagerTabStrip.setDrawFullUnderline(false);
+        mPagerTabStrip.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
         mPagerTabStrip.setPadding(20, 5, 20, 5);
         mPagerTabStrip.setBackgroundColor(Color.parseColor("#86BA9C"));
 

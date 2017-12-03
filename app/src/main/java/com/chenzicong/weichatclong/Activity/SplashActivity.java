@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 
 import com.chenzicong.weichatclong.R;
 
@@ -20,7 +22,7 @@ public class SplashActivity extends AppCompatActivity {
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 if(msg.what==ENTERLOGIN) {
-                    enterLogin();
+                 enterLogin();
                 }
             }
         };
@@ -34,6 +36,26 @@ public class SplashActivity extends AppCompatActivity {
         //去除状态栏，设置为全屏
       getWindow().setFlags(FLAG_FULLSCREEN, FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+        ScaleAnimation animation = new ScaleAnimation(0,1,0,1,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+        animation.setDuration(5000);
+        animation.start();
+        //动画监听
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
 
         new Thread(new Runnable() {
 

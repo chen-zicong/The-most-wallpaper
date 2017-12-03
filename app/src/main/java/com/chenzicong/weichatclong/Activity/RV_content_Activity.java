@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Window;
 
 import com.chenzicong.weichatclong.Adapter.RV_content_Adapter;
 import com.chenzicong.weichatclong.R;
@@ -21,6 +22,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
+
 public class RV_content_Activity extends AppCompatActivity {
     private List<RV_centent_bean> mList;
     private RecyclerView mRecyclerView;
@@ -30,11 +33,13 @@ public class RV_content_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(FLAG_FULLSCREEN, FLAG_FULLSCREEN);
         setContentView(R.layout.activity_rv_content);
         Intent intent = getIntent();
         mContent = intent.getStringExtra("content");
         mRecyclerView = (RecyclerView) findViewById(R.id.RV_content);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         new FetchItemsTask().execute();
 
     }
