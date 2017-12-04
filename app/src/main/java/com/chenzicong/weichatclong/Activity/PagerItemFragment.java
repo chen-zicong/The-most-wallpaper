@@ -70,6 +70,7 @@ public class PagerItemFragment extends Fragment {
 
 
     private void setAdapter() {
+        Log.i("czc", "setAdapter: haha");
         mHomeAdapter = new HomeAdapter(mHomeItems, getActivity());
         //设置动画,默认为渐隐
       mHomeAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT );
@@ -109,6 +110,24 @@ public class PagerItemFragment extends Fragment {
                 }, 1000);
             }
         }, mRecyclerView);
+
+         mHomeAdapter.setUpFetchEnable(true);
+        mHomeAdapter.setUpFetchListener(new BaseQuickAdapter.UpFetchListener() {
+            @Override
+            public void onUpFetch() {
+                mRecyclerView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i("czc", "run: 下拉");
+                        new FetchItemsTask().execute(MORE_DATA);
+                        Log.i("czc", "run: "+Thread.currentThread().getName());
+                        //这里是主线程
+
+
+                    }
+                }, 1000);
+            }
+        });
 
         mRecyclerView.setAdapter(mHomeAdapter);
     }
@@ -205,7 +224,6 @@ public class PagerItemFragment extends Fragment {
          */
         private void loadFirstData() throws IOException {
             mHomeItems = new ArrayList<>();
-            Log.i("czc", "loadFirstData: 进来了没有");
             mUrlq = "http://www.umei.cc/meinvtupian/" + mImageType;
             mDoc = Jsoup.connect(mUrlq).timeout(10000).get();
             mTotal = mDoc.select("div.TypeList");
