@@ -51,7 +51,8 @@ public class PagerActivity extends AppCompatActivity {
            mPagerTabStrip.setDrawFullUnderline(false);
         mPagerTabStrip.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
         mPagerTabStrip.setPadding(20, 5, 20, 5);
-        mPagerTabStrip.setBackgroundColor(Color.parseColor("#86BA9C"));
+        mPagerTabStrip.setTextColor(Color.parseColor("#661023"));
+        mPagerTabStrip.setBackgroundColor(Color.parseColor("#4e4e4e"));
 
     }
 }

@@ -24,13 +24,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
-
 import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 
 
@@ -56,12 +49,12 @@ public class HomeActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)); //瀑布流布局
         //启动后台线程
-      //  new FetchItemsTask().execute(ONE_DATA);
-        initData();
+     new FetchItemsTask().execute(ONE_DATA);
+     //   initData();
 
 
     }
-
+/*
     private void initData() {
 
         Observable.create(new ObservableOnSubscribe<String>() {
@@ -95,7 +88,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
-
+*/
 
     private class FetchItemsTask extends AsyncTask<String, Void, String>
 

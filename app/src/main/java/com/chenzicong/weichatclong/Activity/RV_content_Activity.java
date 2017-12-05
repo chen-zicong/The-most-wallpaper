@@ -1,17 +1,23 @@
 package com.chenzicong.weichatclong.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.chenzicong.weichatclong.Adapter.RV_content_Adapter;
 import com.chenzicong.weichatclong.R;
 import com.chenzicong.weichatclong.beans.RV_centent_bean;
+import com.crazysunj.cardslideview.CardHandler;
+import com.crazysunj.cardslideview.CardViewPager;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -29,6 +35,9 @@ public class RV_content_Activity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RV_content_Adapter mAdapter;
     private String mContent;
+    private MyCardHandler mMyCardHandler;
+    private CardViewPager mViewPager;
+    private boolean mIsCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,17 +47,58 @@ public class RV_content_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_rv_content);
         Intent intent = getIntent();
         mContent = intent.getStringExtra("content");
-        mRecyclerView = (RecyclerView) findViewById(R.id.RV_content);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        mMyCardHandler  = new MyCardHandler();
+        mIsCard = true;
+        mViewPager = (CardViewPager) findViewById(R.id.view_pager);
+
+
+
+        // mRecyclerView = (RecyclerView) findViewById(R.id.RV_content);
+       // mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         new FetchItemsTask().execute();
 
     }
+
+
+    private class MyCardHandler implements CardHandler<RV_centent_bean> {
+
+
+
+        @Override
+        public View onBind(final Context context, final RV_centent_bean data, final int position, int mode) {
+            View view = View.inflate(context, R.layout.rv_content_item, null);
+            ImageView imageView =  view.findViewById(R.id.ImageView);
+            Glide.with(context).load(data.getUrl()).into(imageView);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, "data:" + data + "position:" + position, Toast.LENGTH_SHORT).show();
+                }
+            });
+            return view;
+        }
+    }
+
+
+    public void onClick(View view) {
+        if (mIsCard) {
+            mIsCard = false;
+            switchNormal();
+        } else {
+            mIsCard = true;
+            switchCard();
+        }
+    }
+
+
 
     private class FetchItemsTask extends AsyncTask<Void, Void, List<RV_centent_bean>> {
         @Override
         protected void onPostExecute(List<RV_centent_bean> rv_centent_been) {
             super.onPostExecute(rv_centent_been);
-            setAdapter(rv_centent_been);
+            mViewPager.bind(getSupportFragmentManager(),mMyCardHandler,mList);
+            switchCard();
+
         }
 
         @Override
@@ -94,5 +144,18 @@ public class RV_content_Activity extends AppCompatActivity {
 
 
         mRecyclerView.setAdapter(mAdapter);
+    }
+    private void switchNormal() {
+        mViewPager.setCardTransformer(100, 0);
+        mViewPager.setCardPadding(100);
+        mViewPager.setCardMargin(100);
+        mViewPager.notifyUI(CardViewPager.MODE_NORMAL);
+    }
+
+    private void switchCard() {
+        mViewPager.setCardTransformer(180, 0.38f);
+        mViewPager.setCardPadding(60);
+        mViewPager.setCardMargin(40);
+        mViewPager.notifyUI(CardViewPager.MODE_CARD);
     }
 }

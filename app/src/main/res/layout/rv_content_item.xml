@@ -1,17 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_margin="3dp"
-              android:background="@drawable/seutup1"
-              android:orientation="vertical">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+   
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<com.crazysunj.cardslideview.ElasticCardView
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_gravity="center"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="8dp"
+    app:cardMaxElevation="8dp"
+    app:ratio="1.4">
 
 
-    <ImageView
-        android:id="@+id/ImageView"
-        android:layout_margin="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+
+        <ImageView
+            android:id="@+id/ImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"/>
+<!--
+        <TextView
+            android:id="@+id/NAME"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_item"
+            android:drawableLeft="@drawable/vector_drawable_mark"
+            android:gravity="center"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:text="TEST"
+            android:textColor="#f1f0f0"
+            android:textSize="12sp"
+            android:textStyle="bold"/>
+            -->
 
 
-</LinearLayout>
+</com.crazysunj.cardslideview.ElasticCardView>
+    </RelativeLayout>
