@@ -1,4 +1,4 @@
-package com.chenzicong.weichatclong.Activity;
+package com.chenzicong.weichatclong.activity;
 
 import android.content.Intent;
 import android.os.Bundle;

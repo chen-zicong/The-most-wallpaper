@@ -1,6 +1,7 @@
-package com.chenzicong.weichatclong.Activity;
+package com.chenzicong.weichatclong.activity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,14 +14,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chenzicong.weichatclong.Adapter.HomeAdapter;
 import com.chenzicong.weichatclong.R;
+import com.chenzicong.weichatclong.adapter.HomeAdapter;
 import com.chenzicong.weichatclong.beans.HomeItem;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.litepal.LitePal;
+import org.litepal.crud.DataSupport;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,23 +33,25 @@ import java.util.List;
  * Created by ChenZiCong on 2017/12/2.
  */
 
-public class PagerItemFragment extends Fragment {
-    private String mImageType;
+public class PagerItemFragment extends Fragment  {
+    private static String  mImageType;
     private RecyclerView mRecyclerView;
     private List<HomeItem> mHomeItems;
     private List<HomeItem> mNewHomeItems;
     private static final String ONE_DATA = "one_date";
     private static final String MORE_DATA = "more_date";
 
+
     private HomeAdapter mHomeAdapter;
     private int mI = 2;
 
     public static PagerItemFragment newInstance(String imageType) {
-        return new PagerItemFragment(imageType);
+       mImageType = imageType ;
+        return new PagerItemFragment();
     }
 
-    public PagerItemFragment(String imageType) {
-        mImageType = imageType;
+    public PagerItemFragment() {
+
     }
 
     @Override
@@ -165,6 +170,11 @@ public class PagerItemFragment extends Fragment {
         private Elements mTotal;
         private Elements mItems;
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
 
         @Override
         protected String doInBackground(String... params) {
@@ -176,7 +186,7 @@ public class PagerItemFragment extends Fragment {
                         break;
 
                     case MORE_DATA:
-                        loadMoreData();
+                       // loadMoreData();
                         Log.i("czc", "doInBackground: " + params[0]);
                         break;
 
@@ -197,6 +207,8 @@ public class PagerItemFragment extends Fragment {
          * @throws IOException
          */
         private void loadMoreData() throws IOException {
+
+
             mNewHomeItems = new ArrayList<>();
             mUrlq = "http://www.umei.cc/meinvtupian/" + mImageType + "/" + mI + ".htm";
 
@@ -212,7 +224,9 @@ public class PagerItemFragment extends Fragment {
                 //homeItem.setTitle(title);
                 homeItem.setUrl(imageurl);
                 homeItem.setContent(attr);
+                homeItem.save();
                 mHomeItems.add(homeItem);
+
             }
             mI++;
         }
@@ -223,21 +237,35 @@ public class PagerItemFragment extends Fragment {
          * @throws IOException
          */
         private void loadFirstData() throws IOException {
-            mHomeItems = new ArrayList<>();
-            mUrlq = "http://www.umei.cc/meinvtupian/" + mImageType;
-            mDoc = Jsoup.connect(mUrlq).timeout(10000).get();
-            mTotal = mDoc.select("div.TypeList");
-            mItems = mTotal.select("li");
-            for (Element element : mItems) {
 
-                String imageurl = element.select("img").first().attr("src");
-                //String title = element.select("a").first().attr("alt");
-                String attr = element.select("a").first().attr("href");
-                HomeItem homeItem = new HomeItem();
-                //homeItem.setTitle(title);
-                homeItem.setUrl(imageurl);
-                homeItem.setContent(attr);
-                mHomeItems.add(homeItem);
+         //   LitePal.getDatabase(); //创建数据库
+
+            SQLiteDatabase db = LitePal.getDatabase();
+           // db.execSQL(CREATE_TABLE);
+
+            mHomeItems = new ArrayList<>();
+
+           // DataSupport.deleteAll(HomeItem.class);
+           if(!DataSupport.isExist(HomeItem.class)) {
+                mUrlq = "http://www.umei.cc/meinvtupian/" + mImageType;
+                mDoc = Jsoup.connect(mUrlq).timeout(10000).get();
+                mTotal = mDoc.select("div.TypeList");
+                mItems = mTotal.select("li");
+                for (Element element : mItems) {
+
+                    String imageurl = element.select("img").first().attr("src");
+                    //String title = element.select("a").first().attr("alt");
+                    String attr = element.select("a").first().attr("href");
+                    HomeItem homeItem = new HomeItem();
+                    //homeItem.setTitle(title);
+                    homeItem.setUrl(imageurl);
+                    homeItem.setContent(attr);
+                    homeItem.save();
+                    mHomeItems.add(homeItem);
+                }
+                    }else {
+               Log.i("czc", "loadFirstData: "+"快来我这里");
+                mHomeItems = DataSupport.findAll(HomeItem.class);
             }
         }
 
@@ -252,7 +280,7 @@ public class PagerItemFragment extends Fragment {
                     setAdapter();
                     break;
                 case MORE_DATA:
-                    mHomeAdapter.addData(mNewHomeItems);
+                   // mHomeAdapter.addData(mNewHomeItems);
                     mHomeAdapter.loadMoreComplete();
                     break;
                 default:

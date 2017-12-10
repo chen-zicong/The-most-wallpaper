@@ -1,4 +1,4 @@
-package com.chenzicong.weichatclong.Adapter;
+package com.chenzicong.weichatclong.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

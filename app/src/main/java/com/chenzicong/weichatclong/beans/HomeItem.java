@@ -1,10 +1,12 @@
 package com.chenzicong.weichatclong.beans;
 
+import org.litepal.crud.DataSupport;
+
 /**
  * Created by ChenZiCong on 2017/11/27.
  */
 
-public class HomeItem {
+public class HomeItem extends DataSupport{
     private String title;
     private String url ;
     private String content ;

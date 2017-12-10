@@ -1,4 +1,4 @@
-package com.chenzicong.weichatclong.Activity;
+package com.chenzicong.weichatclong.activity;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
@@ -22,9 +22,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.chenzicong.weichatclong.BeautifulTextUtils.MutableForegroundColorSpan;
+import com.chenzicong.weichatclong.beautifulTextUtils.MutableForegroundColorSpan;
 import com.chenzicong.weichatclong.R;
-import com.chenzicong.weichatclong.BeautifulTextUtils.TypeWriterSpanGroup;
+import com.chenzicong.weichatclong.beautifulTextUtils.TypeWriterSpanGroup;
 import com.chenzicong.weichatclong.database.LoginDatabase;
 
 import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;

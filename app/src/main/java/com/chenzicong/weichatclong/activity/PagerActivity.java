@@ -1,4 +1,4 @@
-package com.chenzicong.weichatclong.Activity;
+package com.chenzicong.weichatclong.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.Window;
 
-import com.chenzicong.weichatclong.Adapter.SimpleViewPagerAdapter;
+import com.chenzicong.weichatclong.adapter.SimpleViewPagerAdapter;
 import com.chenzicong.weichatclong.R;
 
 import java.util.ArrayList;
@@ -26,6 +26,11 @@ public class PagerActivity extends AppCompatActivity {
     private String [] mTitlesStr ={"性感美女","丝袜美女","美女写真","外国美女","内衣美女","街拍美女","美女自拍","美女模特"};
     private String [] mImageTypes ={"xingganmeinv","siwameinv","meinvxiezhen","waiguomeinv","nayimeinv","jiepaimeinv","meinvzipai","meinvmote"};
     private PagerTabStrip mPagerTabStrip;
+
+    public PagerActivity() {
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,14 +49,14 @@ public class PagerActivity extends AppCompatActivity {
         mPagerTabStrip = (PagerTabStrip) findViewById(R.id.PagerTabStrip);
         //添加fragment
         for (String ImageType:mImageTypes) {
-            mFragments.add(new PagerItemFragment(ImageType));
+            mFragments.add(PagerItemFragment.newInstance(ImageType));
         }
         //添加title
         Collections.addAll(mTitles, mTitlesStr);
            mPagerTabStrip.setDrawFullUnderline(false);
         mPagerTabStrip.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
         mPagerTabStrip.setPadding(20, 5, 20, 5);
-        mPagerTabStrip.setTextColor(Color.parseColor("#661023"));
+        mPagerTabStrip.setTextColor(Color.parseColor("#F0F0F0"));
         mPagerTabStrip.setBackgroundColor(Color.parseColor("#4e4e4e"));
 
     }

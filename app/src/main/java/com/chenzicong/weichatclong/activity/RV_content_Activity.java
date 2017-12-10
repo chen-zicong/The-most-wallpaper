@@ -1,4 +1,4 @@
-package com.chenzicong.weichatclong.Activity;
+package com.chenzicong.weichatclong.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.chenzicong.weichatclong.Adapter.RV_content_Adapter;
 import com.chenzicong.weichatclong.R;
+import com.chenzicong.weichatclong.adapter.RV_content_Adapter;
 import com.chenzicong.weichatclong.beans.RV_centent_bean;
 import com.crazysunj.cardslideview.CardHandler;
 import com.crazysunj.cardslideview.CardViewPager;
@@ -30,7 +30,7 @@ import java.util.List;
 
 import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 
-public class RV_content_Activity extends AppCompatActivity {
+public class RV_content_Activity extends AppCompatActivity  {
     private List<RV_centent_bean> mList;
     private RecyclerView mRecyclerView;
     private RV_content_Adapter mAdapter;
@@ -63,7 +63,6 @@ public class RV_content_Activity extends AppCompatActivity {
     private class MyCardHandler implements CardHandler<RV_centent_bean> {
 
 
-
         @Override
         public View onBind(final Context context, final RV_centent_bean data, final int position, int mode) {
             View view = View.inflate(context, R.layout.rv_content_item, null);
@@ -92,7 +91,7 @@ public class RV_content_Activity extends AppCompatActivity {
 
 
 
-    private class FetchItemsTask extends AsyncTask<Void, Void, List<RV_centent_bean>> {
+    private class FetchItemsTask extends AsyncTask<Void, Void, List<RV_centent_bean>>{
         @Override
         protected void onPostExecute(List<RV_centent_bean> rv_centent_been) {
             super.onPostExecute(rv_centent_been);
